@@ -1,0 +1,269 @@
+/* DỰNG BASE */
+
+:root  /*dùng để đặt biến chung global trong css  */
+{
+    --primary-color:#EE4D2D;
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333; /* màu này đọc chữ lâu k bọ mỏi mắt */
+    --border-color : #dbdbdb;
+    --star-gold-color : #ffce3e;
+    
+    --header-height :120px;
+    --navbar-height: 28px;
+    --header-with-search-height:calc(var(--header-height) - var(--navbar-height)) ; /* làm cách này để sau khi thay đổi kích thước thì không bị ảnh hưởng */
+}
+* /* áp dụng ấp cả thuộc tính css lên html được nhúng(link) file css này(base.css)  */
+{
+box-sizing: inherit;
+    /* inherit kế thừa từ thẻ chứa nó(html_cha)*/
+}
+
+html {
+    line-height: 1.6rem; /* set cho "đa số" độ cao của chữ trong web là 16px */
+    box-sizing: border-box;
+    font-size: 62.5%; /* 1rem= 16px= 100%; 62,5%= 10px= 1rem */
+    font-family: 'Roboto', sans-serif; /* nếu chưa load roboto thì dùng sans-serif(là chủng các loại chữ không có gạch chân ở dưới)  */
+}
+
+/* Responsive  */
+.grid {
+    width: 1200px;   /* mình đặt width: 1200px; rồi đặt thêm width: 100%; tức là chiều ngang lớn nhất của .grid là 1200px, trong trường hợp màn hình nhỏ, chiều ngang của .grid có thể giảm xuống dưới 1200px để phù hợp với kích thước màn hình */
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+
+.grid__full-width {
+    width: 100%;
+}
+
+.grid__row 
+/* mỗi thẻ đc áp dụng class này sẽ auto được chia theo 12 cột(kể cả thẻ có 10 cột khi áp dụng row thì vẫn tính theo 12) */
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -5px;
+    margin-left: -5px;
+}
+/*học responsive tới phần grid system với ứng dụng vào thực tế rồi quay lại(ĐÃ HỌC) */
+
+/* Test */
+
+.grid__column-2 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 16.6667%;
+    /* kích thước chiều ngang được tính = lấy số cột chia cho 5 rồi nhân 100. VD 2/5 = ...*100 = width */
+}
+
+.grid__column-2-4 {
+    padding-left: 5px ;
+    padding-right: 5px;
+    width: 20%;
+}
+
+.grid__column-10 {
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 83.3334%;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+
+}
+
+@keyframes growth {
+    from {
+        transform: scale(var(--growth-from));
+    } to {
+        transform: scale(var(--growth-to));
+    }
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    animation: fadeIn linear .2s;
+}
+
+.modal__overlay {
+    position: absolute; /* con của modal có position fix */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal__body {
+    --growth-from: 0.6;
+    --growth-to: 1 ;
+    margin: auto; /* căn giữa thẻ cha flex */
+    /* position: relative; */
+    z-index: 10 ;/* cho nằm trên lớp overlay vì nó đc ưu tiên hơn khi có thuộc tính absolute, vì vậy có thể đưa body lên trên lớp overlay = cách cho nó position là relative hoặc cho z-index */
+    animation: growth linear .2s;
+}
+
+/* Button style */
+.btn  {
+    min-width: 124px; /* đặt là min vì sau này có thể dài thêm ra */
+    height: 34px;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    font-size: 1.5rem;
+    padding: 0 12px;
+    outline: none;
+    cursor: pointer;
+    color: var(--text-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    line-height: 1.6rem;
+}
+
+
+.btn.btn--normal:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn--size-s {
+    height: 32px;
+    font-size: 12px;
+    padding: 0 8px;
+}
+
+.btn.btn--primary /*  gọi 2 class không cách là select tới 1 thẻ "phải" có cả 2 class : btn và btn--primary */
+{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+
+}
+
+.btn.btn--disabled {
+    cursor: default;
+    color: #949494;
+    background-color: #c3c3c3;
+}
+
+/* Selection */
+.select-input {
+    cursor: pointer;
+    position: relative;
+    min-width: 200px;
+    height: 34px;
+    padding: 0 12px;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.select-input__label {
+    font-size: 1.4rem;
+    user-select: none;
+}
+
+.select-input__icon {
+    font-size: 1.4rem;
+    color: rgb(131,131,131);
+    position: relative; /* làm cách này để di chuyển vị trí mà không phải dùng margin(gây ảnh hưởng đấy các thẻ khác)  */
+    top: 1px;
+}
+
+.select-input:hover .select-input__list {
+    display: block;
+}
+
+.select-input__list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 75%;
+    border-radius: 2px;
+    background-color: var(--white-color);
+    padding: 8px 0;
+    list-style: none;
+    display: none;
+    animation: fadeIn ease-in .1s;
+    z-index: 1;
+    box-shadow: rgb(204 204 204 / 77%) 0px 1px 2px;
+} 
+
+.select-input__list::before {
+    content: "";
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: -21%;
+    height: 20px;
+    left: 0;
+}
+
+.select-input__link {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    padding: 8px 0 6px 10%;
+
+}
+
+.select-input__link:hover {
+    color: var(--primary-color);
+}
+
+/* pagination */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding-left: 0;
+}
+
+.pagination-item {
+    margin-right: 12px;
+}
+.pagination-item--active .pagination-item__link  /* khi có class active thì link sẽ được áp dụng những thuộc tính đc viết */
+{
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+.pagination-item--active .pagination-item__link:hover {
+    background-color: #ed5c3f;
+}
+
+.pagination-item__link {
+    --height: 30px;/* đặt biến local */
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: #939393;
+    min-width: 40px; /* đặt min vì sau này có thể chiều ngang sẽ tăng lên khi có số thứ tự giá trị lớn hơn sẽ bị to ra */
+    display: block;
+    height: var(--height);
+    line-height: var(--height);
+    text-align: center;
+    border-radius: 2px;
+}
+
+.pagination-item__icon {
+
+}
