@@ -26,6 +26,10 @@ html {
     font-family: 'Roboto', sans-serif; /* nếu chưa load roboto thì dùng sans-serif(là chủng các loại chữ không có gạch chân ở dưới)  */
 }
 
+body {
+    margin: 0;
+}
+
 /* Responsive  */
 .grid {
     width: 1200px;   /* mình đặt width: 1200px; rồi đặt thêm width: 100%; tức là chiều ngang lớn nhất của .grid là 1200px, trong trường hợp màn hình nhỏ, chiều ngang của .grid có thể giảm xuống dưới 1200px để phù hợp với kích thước màn hình */
